@@ -1,0 +1,24 @@
+﻿name: snake
+
+services:
+  snake_game:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: snake-game:1.0
+    container_name: snake-game
+    environment:
+      VIRTUAL_HOST: snake.iakh.ru
+      VIRTUAL_PORT: 5000
+      LETSENCRYPT_HOST: snake.iakh.ru
+      LETSENCRYPT_EMAIL: secret_world_sun@mail.ru
+    expose:
+      - 5000
+    networks:
+      - proxy
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
+    name: proxy_default
